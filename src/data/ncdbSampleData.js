@@ -20,7 +20,7 @@ export const fieldDictionary = [
 ].map(([label, source]) => ({ label, source }));
 
 export const historicalUploadSummary = {
-  fileName: 'mock_ncdb_historical_sample.csv',
+  fileName: 'ncdb_style_historical_sample.csv',
   recordsLoaded: 12480,
   yearRange: '2016–2020',
   detectedColumns: 18,
@@ -30,19 +30,19 @@ export const historicalUploadSummary = {
 };
 
 export const newCaseUploadSummary = {
-  fileName: 'mock_new_cases_upload.xlsx',
+  fileName: 'sample_new_cases_upload.xlsx',
   casesDetected: 3,
   fieldsMapped: 16,
   fieldsNeedingReview: 2,
   completeness: '88% complete; two fields flagged for reviewer confirmation',
 };
 
-export const mockNewCases = [
+export const sampleNewCases = [
   {
     id: 'CASE-HR-1042',
-    name: 'High-risk mock case',
+    name: 'High-risk sample case',
     description: 'Young driver, older vehicle, late-night context, injury-related severity, and higher uncertainty.',
-    sourceFile: 'mock_new_cases_upload.xlsx',
+    sourceFile: 'sample_new_cases_upload.xlsx',
     completeness: '78% complete — missing safety-device confirmation and traffic-control detail',
     baselineRiskSignal: 'Elevated baseline risk signal from existing underwriting decisioning workflow',
     reviewer: 'A. Chen',
@@ -60,7 +60,7 @@ export const mockNewCases = [
       C_TRAF: null,
       V_TYPE: 'Passenger car',
       V_YEAR: 2008,
-      P_SEX: 'Not used for risk direction in prototype',
+      P_SEX: 'Not used for risk direction in this workflow',
       P_AGE: 21,
       P_ISEV: 'Major injury reported',
       P_SAFE: null,
@@ -69,9 +69,9 @@ export const mockNewCases = [
   },
   {
     id: 'CASE-MR-2278',
-    name: 'Moderate-risk mock case',
+    name: 'Moderate-risk sample case',
     description: 'Moderate vehicle age, clear weather, dry road, and lower-severity collision context.',
-    sourceFile: 'mock_new_cases_upload.xlsx',
+    sourceFile: 'sample_new_cases_upload.xlsx',
     completeness: '96% complete — ready for comparison',
     baselineRiskSignal: 'Moderate baseline risk signal from existing underwriting decisioning workflow',
     reviewer: 'M. Patel',
@@ -89,7 +89,7 @@ export const mockNewCases = [
       C_TRAF: 'Traffic signal present',
       V_TYPE: 'SUV',
       V_YEAR: 2016,
-      P_SEX: 'Not used for risk direction in prototype',
+      P_SEX: 'Not used for risk direction in this workflow',
       P_AGE: 38,
       P_ISEV: 'Minor injury reported',
       P_SAFE: 'Safety device used',
@@ -98,9 +98,9 @@ export const mockNewCases = [
   },
   {
     id: 'CASE-LR-3095',
-    name: 'Lower-risk incomplete-data mock case',
+    name: 'Lower-risk incomplete-data sample case',
     description: 'Newer vehicle and better road conditions, with a few missing fields that increase uncertainty.',
-    sourceFile: 'mock_new_cases_upload.xlsx',
+    sourceFile: 'sample_new_cases_upload.xlsx',
     completeness: '84% complete — weather and collision configuration need confirmation',
     baselineRiskSignal: 'Low-to-moderate baseline risk signal from existing underwriting decisioning workflow',
     reviewer: 'J. Rivera',
@@ -118,7 +118,7 @@ export const mockNewCases = [
       C_TRAF: 'No control present',
       V_TYPE: 'Passenger car',
       V_YEAR: 2022,
-      P_SEX: 'Not used for risk direction in prototype',
+      P_SEX: 'Not used for risk direction in this workflow',
       P_AGE: 44,
       P_ISEV: 'No injury reported',
       P_SAFE: 'Safety device used',
@@ -194,7 +194,7 @@ export const initialAuditRecords = [
   {
     timestamp: '2026-05-30 09:10 UTC',
     caseId: 'CASE-HR-1042',
-    source: 'mock_new_cases_upload.xlsx',
+    source: 'sample_new_cases_upload.xlsx',
     riskLevel: 'High',
     confidence: 'Medium confidence / higher uncertainty',
     scenario: 'None',
@@ -207,7 +207,7 @@ export const initialAuditRecords = [
   {
     timestamp: '2026-05-30 09:25 UTC',
     caseId: 'CASE-MR-2278',
-    source: 'mock_new_cases_upload.xlsx',
+    source: 'sample_new_cases_upload.xlsx',
     riskLevel: 'Moderate',
     confidence: 'High confidence',
     scenario: 'Daytime dry-road comparison reviewed',
@@ -220,7 +220,7 @@ export const initialAuditRecords = [
   {
     timestamp: '2026-05-30 09:40 UTC',
     caseId: 'CASE-LR-3095',
-    source: 'mock_new_cases_upload.xlsx',
+    source: 'sample_new_cases_upload.xlsx',
     riskLevel: 'Needs Review',
     confidence: 'Medium confidence / missing fields',
     scenario: 'None',

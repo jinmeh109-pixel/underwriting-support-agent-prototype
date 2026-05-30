@@ -19,7 +19,7 @@ export function assessRisk(caseProfile) {
     drivers.push(driver('Vehicle age', 'increases uncertainty', 'Vehicle year is missing, so the comparison set is less certain.', 'V_YEAR', 0));
   } else if (vehicleAge >= 15) {
     score += 22;
-    drivers.push(driver('Vehicle age', 'increases risk', `Vehicle is approximately ${vehicleAge} years old, which increases review priority in this mock comparison.`, 'V_YEAR', 22));
+    drivers.push(driver('Vehicle age', 'increases risk', `Vehicle is approximately ${vehicleAge} years old, which increases review priority in this sample comparison.`, 'V_YEAR', 22));
   } else if (vehicleAge >= 8) {
     score += 12;
     drivers.push(driver('Vehicle age', 'increases risk', `Vehicle is approximately ${vehicleAge} years old, creating a moderate age-related risk signal.`, 'V_YEAR', 12));
@@ -33,7 +33,7 @@ export function assessRisk(caseProfile) {
     drivers.push(driver('Collision severity', 'increases risk', 'The collision severity context is injury-related or severe, requiring stronger reviewer attention.', 'C_SEV', 20));
   } else if (includesAny(data.C_SEV || '', ['property damage only', 'non-fatal'])) {
     score -= includesAny(data.C_SEV || '', ['property damage only']) ? 10 : 2;
-    drivers.push(driver('Collision severity', includesAny(data.C_SEV || '', ['property damage only']) ? 'lowers risk' : 'neutral', 'The collision severity context does not indicate a fatal outcome in the mock profile.', 'C_SEV', -6));
+    drivers.push(driver('Collision severity', includesAny(data.C_SEV || '', ['property damage only']) ? 'lowers risk' : 'neutral', 'The collision severity context does not indicate a fatal outcome in the sample profile.', 'C_SEV', -6));
   }
 
   if (includesAny(data.P_ISEV || '', ['major', 'serious', 'fatal'])) {
@@ -49,7 +49,7 @@ export function assessRisk(caseProfile) {
 
   if (Number(data.C_HOUR) >= 22 || Number(data.C_HOUR) <= 5) {
     score += 13;
-    drivers.push(driver('Late-hour exposure', 'increases risk', 'Late-night timing is a moderate contextual signal in the mock historical comparison.', 'C_HOUR', 13));
+    drivers.push(driver('Late-hour exposure', 'increases risk', 'Late-night timing is a moderate contextual signal in the sample historical comparison.', 'C_HOUR', 13));
   } else {
     score -= 5;
     drivers.push(driver('Time of day', 'lowers risk', 'Daytime timing reduces the late-hour exposure concern.', 'C_HOUR', -5));
@@ -125,7 +125,7 @@ function confidenceLabel(score, uncertainty) {
 function buildReasoningSummary(level, topDrivers, uncertainty) {
   const names = topDrivers.map((item) => item.name.toLowerCase()).join(', ');
   const uncertaintyText = uncertainty > 0 ? ' Missing or unconfirmed data increases uncertainty.' : '';
-  return `The deterministic prototype classifies this case as ${level} based mainly on ${names}.${uncertaintyText}`;
+  return `The deterministic workflow classifies this case as ${level} based mainly on ${names}.${uncertaintyText}`;
 }
 
 export function answerAgentQuestion(question, assessment) {
@@ -133,10 +133,10 @@ export function answerAgentQuestion(question, assessment) {
   const top = assessment.topDrivers[0];
   if (q.includes('most')) return `${top.name} contributes the strongest directional signal because: ${top.explanation}`;
   if (q.includes('high risk')) return assessment.level === 'High' ? `This case is high risk because multiple risk drivers align: ${assessment.topDrivers.map((d) => d.name).join(', ')}.` : `This case is currently ${assessment.level}, not automatically high risk. The workspace highlights the drivers requiring review.`;
-  if (q.includes('evidence')) return `Evidence comes from transparent mock NCDB-style fields and deterministic rules, especially ${assessment.topDrivers.map((d) => `${d.name} (${d.sourceField})`).join(', ')}.`;
+  if (q.includes('evidence')) return `Evidence comes from transparent NCDB-style fields and deterministic rules, especially ${assessment.topDrivers.map((d) => `${d.name} (${d.sourceField})`).join(', ')}.`;
   if (q.includes('missing')) return assessment.drivers.find((d) => d.name === 'Missing data')?.explanation || 'No major missing-data driver is flagged for this selected case.';
   if (q.includes('reduce')) return 'Risk could be reduced in the simulation by testing newer vehicle assumptions, daytime timing, dry roads, clear weather, lower severity, or more complete applicant data.';
-  if (q.includes('human')) return assessment.humanReviewRequired ? 'Yes. The prototype recommends human review because the agent is only an explainability and governance layer; the human reviewer remains the final decision maker.' : 'Human review is still available, but the deterministic result does not require elevated review.';
+  if (q.includes('human')) return assessment.humanReviewRequired ? 'Yes. The platform recommends human review because the agent is only an explainability and governance layer; the human reviewer remains the final decision maker.' : 'Human review is still available, but the deterministic result does not require elevated review.';
   return `${assessment.reasoningSummary} Recommended next step: ${assessment.recommendedNextStep}`;
 }
 
@@ -200,7 +200,7 @@ export function runWhatIf(caseProfile, question) {
     modified.data.C_WTHR ||= 'Clear';
     modified.data.C_CONF ||= 'Configuration confirmed';
     interpreted = 'More complete data assumption';
-    changed = 'Missing or unconfirmed fields filled with conservative mock values.';
+    changed = 'Missing or unconfirmed fields filled with conservative sample values.';
   } else {
     mapped = false;
   }
@@ -208,7 +208,7 @@ export function runWhatIf(caseProfile, question) {
   if (!mapped) {
     return {
       mapped: false,
-      fallback: 'The prototype could not confidently map this What-if question to an NCDB-style risk variable. Please rephrase or choose a suggested scenario.',
+      fallback: 'The platform could not confidently map this What-if question to an NCDB-style risk variable. Please rephrase or choose a suggested scenario.',
     };
   }
 
