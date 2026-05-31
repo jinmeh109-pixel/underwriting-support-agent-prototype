@@ -23,7 +23,7 @@ The platform demonstrates:
 
 The current platform uses NCDB-style historical collision data. The sample fields look structurally similar to NCDB-style variables, but they are not official NCDB extracts and should not be treated as real data.
 
-The current platform also uses sample new-case data. These new client or new case profiles are fake from beginning to end and are included only to demonstrate how insurer-provided applicant, policy, or portfolio data could enter a future platform.
+The current platform also uses sample new-case data. These new client or new case profiles are sample records included to show how insurer-provided applicant, policy, or portfolio data could enter a future platform.
 
 In a future implementation:
 
