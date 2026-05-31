@@ -8,14 +8,14 @@ The app is designed as an explainability, simulation, and governance layer on to
 
 ## Platform scope
 
-This is **not a production system**. The current implementation intentionally avoids backend services, real APIs, real model training, real file parsing, and real AI/LLM integration. All interactions are deterministic frontend sample-data workflows.
+This is **not a production system**. The current implementation intentionally avoids backend services, real APIs, real model training, real file parsing, and real AI/LLM integration. All interactions use frontend sample case workflows grounded in historical collision-pattern logic.
 
 The platform demonstrates:
 
 - File-based data intake for historical collision-risk data.
 - File-based intake for sample new applicant, policy, or case profiles.
 - Transparent risk assessment with readable risk drivers.
-- Natural-language what-if simulation using deterministic keyword rules.
+- Natural-language what-if simulation grounded in historical collision-pattern variables.
 - Human-in-the-loop review and rationale capture.
 - Audit logging for traceability and governance.
 
@@ -29,7 +29,7 @@ In a future implementation:
 
 - The NCDB-style historical collision dataset can be replaced with cleaned official NCDB extracts.
 - The sample new-case profiles can be replaced with insurer-provided applicant, policy, or portfolio data.
-- The deterministic reasoning layer can be connected to validated internal analytics, governance rules, or reviewed model outputs.
+- The rule-based reasoning layer can be connected to validated internal analytics, governance rules, or reviewed model outputs.
 
 ## Human review
 
@@ -68,5 +68,5 @@ npm run build
 ## Important implementation files
 
 - `src/data/ncdbSampleData.js` keeps NCDB-style historical summaries, sample new cases, cohort summaries, field dictionary entries, and seed audit records separated from UI code.
-- `src/lib/riskReasoning.js` contains deterministic risk assessment, agent-question responses, and what-if simulation logic.
+- `src/lib/riskReasoning.js` contains risk assessment, agent-question responses, and what-if simulation logic.
 - `src/App.jsx` contains the presentation-focused React frontend, navigation, page state, sample upload interactions, human review state, and audit log updates.

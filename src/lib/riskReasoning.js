@@ -125,7 +125,7 @@ function confidenceLabel(score, uncertainty) {
 function buildReasoningSummary(level, topDrivers, uncertainty) {
   const names = topDrivers.map((item) => item.name.toLowerCase()).join(', ');
   const uncertaintyText = uncertainty > 0 ? ' Missing or unconfirmed data increases uncertainty.' : '';
-  return `The deterministic workflow classifies this case as ${level} based mainly on ${names}.${uncertaintyText}`;
+  return `The NCDB-grounded workflow classifies this case as ${level} based mainly on ${names}.${uncertaintyText}`;
 }
 
 export function answerAgentQuestion(question, assessment) {
@@ -133,10 +133,10 @@ export function answerAgentQuestion(question, assessment) {
   const top = assessment.topDrivers[0];
   if (q.includes('most')) return `${top.name} contributes the strongest directional signal because: ${top.explanation}`;
   if (q.includes('high risk')) return assessment.level === 'High' ? `This case is high risk because multiple risk drivers align: ${assessment.topDrivers.map((d) => d.name).join(', ')}.` : `This case is currently ${assessment.level}, not automatically high risk. The workspace highlights the drivers requiring review.`;
-  if (q.includes('evidence')) return `Evidence comes from transparent NCDB-style fields and deterministic rules, especially ${assessment.topDrivers.map((d) => `${d.name} (${d.sourceField})`).join(', ')}.`;
+  if (q.includes('evidence')) return `Evidence comes from transparent NCDB-style fields and NCDB-grounded review logic, especially ${assessment.topDrivers.map((d) => `${d.name} (${d.sourceField})`).join(', ')}.`;
   if (q.includes('missing')) return assessment.drivers.find((d) => d.name === 'Missing data')?.explanation || 'No major missing-data driver is flagged for this selected case.';
   if (q.includes('reduce')) return 'Risk could be reduced in the simulation by testing newer vehicle assumptions, daytime timing, dry roads, clear weather, lower severity, or more complete applicant data.';
-  if (q.includes('human')) return assessment.humanReviewRequired ? 'Yes. The platform recommends human review because the agent is only an explainability and governance layer; the human reviewer remains the final decision maker.' : 'Human review is still available, but the deterministic result does not require elevated review.';
+  if (q.includes('human')) return assessment.humanReviewRequired ? 'Yes. The platform recommends human review because the agent is only an explainability and governance layer; the human reviewer remains the final decision maker.' : 'Human review is still available, but the current case assessment does not require elevated review.';
   return `${assessment.reasoningSummary} Recommended next step: ${assessment.recommendedNextStep}`;
 }
 
@@ -226,7 +226,7 @@ export function runWhatIf(caseProfile, question) {
     simulatedRiskLevel: simulated.level,
     riskDirection: direction,
     confidenceChange,
-    explanation: `Under the ${interpreted.toLowerCase()}, risk ${direction} because the deterministic rules re-evaluate vehicle, severity, time, road, weather, configuration, and missing-data signals.`,
+    explanation: `Under the ${interpreted.toLowerCase()}, risk ${direction} because the NCDB-grounded review logic re-evaluates vehicle, severity, time, road, weather, configuration, and missing-data signals.`,
     humanReviewImplication: simulated.humanReviewRequired
       ? 'The simulated profile would still require documented human review.'
       : 'The simulated profile could continue standard review, with the human reviewer retaining final decision authority.',
